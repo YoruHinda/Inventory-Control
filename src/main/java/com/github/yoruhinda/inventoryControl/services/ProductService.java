@@ -33,10 +33,19 @@ public class ProductService {
     }
 
     public Product update(Long id, ProductDto productDto){
-        return null;
+        Product product = productRepository.findById(id).get();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setQuantity(productDto.getQuantity());
+        if(productDto.getQuantity() > 0){
+            product.setProduct_status(ProductStatus.IN_STOCK);
+        }else {
+            product.setProduct_status(ProductStatus.OUT_OF_STOCK);
+        }
+        return productRepository.save(product);
     }
 
-    public Product delete(Long id){
-        return null;
+    public void delete(Long id){
+        productRepository.deleteById(id);
     }
 }

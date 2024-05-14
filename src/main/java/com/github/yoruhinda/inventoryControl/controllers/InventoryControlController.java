@@ -36,7 +36,8 @@ public class InventoryControlController {
     }
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<Product> delete(@PathVariable Long id){
-        return new ResponseEntity<>(productService.delete(id), HttpStatus.OK);
+    public ResponseEntity delete(@PathVariable Long id){
+        productService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
