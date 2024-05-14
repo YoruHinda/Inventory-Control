@@ -19,10 +19,16 @@ public class Product {
     @Column(name = "name")
     private String name;
     @Column(name = "quantity")
-    private Long quantity;
+    private int quantity;
     @Column(name = "price")
     private float price;
     @Enumerated(EnumType.STRING)
     @Column(name = "ProductStatus")
     private ProductStatus product_status;
+
+    public Product(String name, int quantity, float price) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
 }
