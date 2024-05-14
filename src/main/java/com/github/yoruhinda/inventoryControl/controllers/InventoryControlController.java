@@ -30,13 +30,13 @@ public class InventoryControlController {
         return new ResponseEntity<>(productService.save(productDto), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Product> update(){
-        return null;
+    @PutMapping("/product/{id}")
+    public ResponseEntity<Product> update(@PathVariable("id") Long id, @RequestBody ProductDto productDto){
+        return new ResponseEntity<>(productService.update(id, productDto), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Product> delete(){
-        return null;
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<Product> delete(@PathVariable Long id){
+        return new ResponseEntity<>(productService.delete(id), HttpStatus.OK);
     }
 }

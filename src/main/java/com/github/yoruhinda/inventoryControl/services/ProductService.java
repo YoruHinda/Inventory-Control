@@ -32,11 +32,11 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product update(){
+    public Product update(Long id, ProductDto productDto){
         return null;
     }
 
-    public Product delete(){
+    public Product delete(Long id){
         return null;
     }
 }
