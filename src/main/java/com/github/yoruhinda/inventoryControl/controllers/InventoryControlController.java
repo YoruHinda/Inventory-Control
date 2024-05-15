@@ -32,7 +32,7 @@ public class InventoryControlController {
         return new ResponseEntity<>(productService.save(productDto), HttpStatus.CREATED);
     }
 
-    @PostMapping("/product")
+    @PostMapping("/products")
     public ResponseEntity<List<Product>> saveAll(@RequestBody List<ProductDto> productDtos){
         return new ResponseEntity<>(productService.saveAll(productDtos), HttpStatus.CREATED);
     }
