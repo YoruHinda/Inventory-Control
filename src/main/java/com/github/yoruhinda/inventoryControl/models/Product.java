@@ -33,7 +33,7 @@ public class Product {
         verifyProductInStock(quantity);
     }
 
-    private void verifyProductInStock(int quantity) {
+    public void verifyProductInStock(int quantity) {
         if(quantity > 0){
             this.product_status = ProductStatus.IN_STOCK;
         }else {

@@ -42,6 +42,7 @@ public class ProductService {
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setQuantity(productDto.getQuantity());
+        product.verifyProductInStock(productDto.getQuantity());
         return productRepository.save(product);
     }
 
