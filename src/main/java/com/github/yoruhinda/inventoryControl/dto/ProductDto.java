@@ -1,6 +1,6 @@
 package com.github.yoruhinda.inventoryControl.dto;
 
-import com.github.yoruhinda.inventoryControl.enums.ProductStatus;
+import com.github.yoruhinda.inventoryControl.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,5 +11,8 @@ public class ProductDto {
     private String name;
     private int quantity;
     private float price;
-    private ProductStatus productStatus;
+
+    public Product convertDtoToEntity(){
+        return new Product(this.getName(), this.getQuantity(), this.getPrice());
+    }
 }

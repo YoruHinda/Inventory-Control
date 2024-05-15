@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 public class InventoryControlController {
@@ -22,12 +23,18 @@ public class InventoryControlController {
 
     @GetMapping("/product/{id}")
     public ResponseEntity<Product> findById(@PathVariable("id") Long id){
-        return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
+        Product product = productService.findById(id).orElseThrow(NoSuchElementException::new);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PostMapping("/product")
     public ResponseEntity<Product> save(@RequestBody ProductDto productDto){
         return new ResponseEntity<>(productService.save(productDto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/product")
+    public ResponseEntity<List<Product>> saveAll(@RequestBody List<ProductDto> productDtos){
+        return new ResponseEntity<>(productService.saveAll(productDtos), HttpStatus.CREATED);
     }
 
     @PutMapping("/product/{id}")

@@ -1,13 +1,15 @@
 package com.github.yoruhinda.inventoryControl.services;
 
 import com.github.yoruhinda.inventoryControl.dto.ProductDto;
-import com.github.yoruhinda.inventoryControl.enums.ProductStatus;
 import com.github.yoruhinda.inventoryControl.models.Product;
 import com.github.yoruhinda.inventoryControl.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -18,30 +20,28 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findById(Long id){
-        return productRepository.findById(id).get();
+    public Optional<Product> findById(Long id){
+        return productRepository.findById(id);
     }
 
     public Product save(ProductDto productDto){
-        Product product = new Product(productDto.getName(), productDto.getQuantity(), productDto.getPrice());
-        if(productDto.getQuantity() > 0){
-            product.setProduct_status(ProductStatus.IN_STOCK);
-        }else {
-            product.setProduct_status(ProductStatus.OUT_OF_STOCK);
-        }
+        Product product = productDto.convertDtoToEntity();
         return productRepository.save(product);
     }
 
+    public List<Product> saveAll(List<ProductDto> productDtos){
+        List<Product> products = new ArrayList<>();
+        for(ProductDto productDto : productDtos){
+            products.add(productDto.convertDtoToEntity());
+        }
+        return productRepository.saveAll(products);
+    }
+
     public Product update(Long id, ProductDto productDto){
-        Product product = productRepository.findById(id).get();
+        Product product = productRepository.findById(id).orElseThrow(NoSuchElementException::new);
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setQuantity(productDto.getQuantity());
-        if(productDto.getQuantity() > 0){
-            product.setProduct_status(ProductStatus.IN_STOCK);
-        }else {
-            product.setProduct_status(ProductStatus.OUT_OF_STOCK);
-        }
         return productRepository.save(product);
     }
 

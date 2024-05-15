@@ -30,5 +30,14 @@ public class Product {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        verifyProductInStock(quantity);
+    }
+
+    private void verifyProductInStock(int quantity) {
+        if(quantity > 0){
+            this.product_status = ProductStatus.IN_STOCK;
+        }else {
+            this.product_status = ProductStatus.OUT_OF_STOCK;
+        }
     }
 }
