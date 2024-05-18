@@ -1,6 +1,8 @@
 package com.github.yoruhinda.inventoryControl.dto;
 
 import com.github.yoruhinda.inventoryControl.models.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProductDto {
     private Long id;
+    @NotEmpty
     private String name;
     private int quantity;
     private float price;
